@@ -1,6 +1,6 @@
 # reading data from uniswap v3
 
-## project setup
+## Project Setup and Uniswap V3 Documentation
 
 run:
 mkdir CTEWFL-reading-data-from-uniswap-v2
@@ -18,3 +18,5 @@ npm i --save @uniswap/v3-sdk
 npm i --save @uniswap/sdk-core
 
 create some files in client folder
+
+##
