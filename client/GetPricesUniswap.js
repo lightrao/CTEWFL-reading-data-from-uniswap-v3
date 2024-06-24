@@ -13,31 +13,40 @@ const provider = new ethers.providers.JsonRpcProvider(process.env.ALCHEMY_URL);
 
 // Function to get the price quote for swapping an exact amount of one token for another
 async function getPrice(addressFrom, addressTo, amountInHuman) {
-  // Address of the Uniswap V3 Quoter contract
-  const quoterAddress = "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6"; // Uniswap V3 Quoter address
+  try {
+    // Address of the Uniswap V3 Quoter contract
+    const quoterAddress = "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6"; // Uniswap V3 Quoter address
 
-  // Create an instance of the Quoter contract
-  const quoterContract = new ethers.Contract(
-    quoterAddress,
-    QuoterABI,
-    provider
-  );
+    // Create an instance of the Quoter contract
+    const quoterContract = new ethers.Contract(
+      quoterAddress,
+      QuoterABI,
+      provider
+    );
 
-  // Convert the human-readable input amount to the smallest unit (USDC has 6 decimals)
-  const amountIn = ethers.utils.parseUnits(amountInHuman, 6);
+    // Convert the human-readable input amount to the smallest unit (USDC has 6 decimals)
+    const amountIn = ethers.utils.parseUnits(amountInHuman, 6);
 
-  // Call the quoteExactInputSingle function to get the expected output amount
-  const quoteAmountOut = await quoterContract.callStatic.quoteExactInputSingle(
-    addressFrom, // Address of the input token (USDC)
-    addressTo, // Address of the output token (WETH)
-    3000, // Fee tier (0.3% fee)
-    amountIn.toString(), // Amount of input tokens in the smallest unit, as a string
-    0 // Price limit set to 0 to use the current pool price
-  );
+    // Call the quoteExactInputSingle function to get the expected output amount
+    const quoteAmountOut =
+      await quoterContract.callStatic.quoteExactInputSingle(
+        addressFrom, // Address of the input token (USDC)
+        addressTo, // Address of the output token (WETH)
+        3000, // Fee tier (0.3% fee)
+        amountIn.toString(), // Amount of input tokens in the smallest unit, as a string
+        0 // Price limit set to 0 to use the current pool price
+      );
 
-  // Convert the output amount to a human-readable format (WETH has 18 decimals)
-  const amount = ethers.utils.formatUnits(quoteAmountOut.toString(), 18);
-  return amount; // Return the formatted output amount
+    // Convert the output amount to a human-readable format (WETH has 18 decimals)
+    const amountOutHuman = ethers.utils.formatUnits(
+      quoteAmountOut.toString(),
+      18
+    );
+    return amountOutHuman; // Return the formatted output amount
+  } catch (error) {
+    console.error("Error getting price quote:", error);
+    throw error;
+  }
 }
 
 // Main function to execute the price quote
@@ -46,9 +55,13 @@ const main = async () => {
   const addressTo = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"; // WETH address
   const amountInHuman = "2900"; // Input amount in human-readable format
 
-  // Get the price quote for swapping the specified amount
-  const amountOut = await getPrice(addressFrom, addressTo, amountInHuman);
-  console.log(amountOut); // Output the amount received from the swap
+  try {
+    // Get the price quote for swapping the specified amount
+    const amountOut = await getPrice(addressFrom, addressTo, amountInHuman);
+    console.log(`Amount out for ${amountInHuman} USDC: ${amountOut} WETH`); // Output the amount received from the swap
+  } catch (error) {
+    console.error("Failed to get price quote:", error);
+  }
 };
 
 main(); // Call the main function to execute the process
