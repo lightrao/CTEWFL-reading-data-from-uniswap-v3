@@ -19,4 +19,6 @@ npm i --save @uniswap/sdk-core
 
 create some files in client folder
 
-##
+## Connecting to the Quoter Contract
+
+In client folder create GetPricesUniswap.js

@@ -10,7 +10,7 @@ const {
 const provider = new ethers.providers.JsonRpcProvider(process.env.ALCHEMY_URL);
 
 async function getPrice(addressFrom, addressTo, amountInHuman) {
-  const quoterAddress = "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6";
+  const quoterAddress = "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6"; // uniswap v3 quoter address
 
   const quoterContract = new ethers.Contract(
     quoterAddress,
