@@ -22,3 +22,7 @@ create some files in client folder
 ## Connecting to the Quoter Contract
 
 In client folder create GetPricesUniswap.js
+
+## Getting Immutable Fee with Documentation
+
+In client folder create Pool.js
