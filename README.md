@@ -1,28 +1,39 @@
-# reading data from uniswap v3
+# Reading Data from Uniswap V3
 
 ## Project Setup and Uniswap V3 Documentation
 
-run:
-mkdir CTEWFL-reading-data-from-uniswap-v2
-cd CTEWFL-reading-data-from-uniswap-v2
-npm init -y
-npm install
-npm i ethers@5.6.4
-npm install dotenv@16.4.5
+1. Create a new directory and initialize npm:
 
-then creat `client` folder in project root folder
-read doc: https://docs.uniswap.org/sdk/v3/overview
+   ```bash
+   mkdir CTEWFL-reading-data-from-uniswap-v2
+   cd CTEWFL-reading-data-from-uniswap-v2
+   npm init -y
+   npm install
+   npm i ethers@5.6.4
+   npm install dotenv@16.4.5
+   ```
 
-run:
-npm i --save @uniswap/v3-sdk
-npm i --save @uniswap/sdk-core
+2. Create a `client` folder in the project root folder.
 
-create some files in client folder
+3. Read the Uniswap V3 SDK documentation: [Uniswap V3 SDK Overview](https://docs.uniswap.org/sdk/v3/overview)
+
+4. Install necessary packages:
+
+   ```bash
+   npm i --save @uniswap/v3-sdk
+   npm i --save @uniswap/sdk-core
+   ```
+
+5. Create some files in the `client` folder.
 
 ## Connecting to the Quoter Contract
 
-In client folder create GetPricesUniswap.js
+1. In the `client` folder, create `GetPricesUniswap.js`.
 
 ## Getting Immutable Fee with Documentation
 
-In client folder create Pool.js
+1. In the `client` folder, create `Pool.js`.
+
+## Fetching Pool Addresses Example
+
+1. In the `client` folder, create `Factory.js`.
